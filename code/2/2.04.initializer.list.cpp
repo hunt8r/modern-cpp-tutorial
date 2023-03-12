@@ -38,6 +38,7 @@ int main() {
     int arr[3] = {1, 2, 3};
     Foo foo(1, 2);
     std::vector<int> vec = {1, 2, 3, 4, 5};
+    /* Notice the difference arr[3] and vec it is missing the array type initialization*/
 
     // after C++11
     MagicFoo magicFoo = {1, 2, 3, 4, 5};
