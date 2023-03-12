@@ -41,3 +41,9 @@ int main() {
     // auto auto_arr2[10] = {arr}; // invalid
     return 0;
 }
+
+/*
+Note that in C++17 and earlier versions, auto cannot be used as a function parameter type, and its behavior with dynamic memory allocation 
+is more limited. 
+In C++20, auto can be used for function parameters and return types, making the code more flexible and expressive.
+*/
