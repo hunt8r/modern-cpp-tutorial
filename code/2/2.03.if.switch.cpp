@@ -19,7 +19,12 @@ int main() {
     if (itr != vec.end()) {
         *itr = 3;
     }
-
+/*
+t shows how a conditional expression can be used with an initialization statement. 
+In the second if statement, we initialize the itr variable inside the condition by calling std::find to search for the value 3 in the vec vector. 
+If std::find returns an iterator that is not equal to vec.end(), the if block is executed, and we change the value pointed to 
+by the iterator from 3 to 4
+*/
     if (const std::vector<int>::iterator itr = std::find(vec.begin(), vec.end(), 3);
         itr != vec.end()) {
         *itr = 4;
