@@ -51,3 +51,15 @@ int main() {
 
     return 0;
 }
+
+/*
+This code demonstrates the usage of different ways to declare arrays in C++.
+
+The code first defines a macro constant LEN with the value 10. It then defines a function len_foo() which returns an integer value of 2. Another function len_foo_constexpr() is defined with the constexpr specifier, which means that it can be evaluated at compile-time. This function returns an integer value of 5.
+
+Next, the code demonstrates the different ways to declare arrays. The first two declarations char arr_1[10] and char arr_2[LEN] are legal and equivalent. However, the third declaration char arr_3[len] is illegal because len is not a constant expression, and array size must be known at compile-time.
+
+The code then shows that it is possible to declare an array with a constant expression len_2_constexpr computed at compile-time, but len_2 computed at runtime cannot be used for array declaration. The declaration char arr_4[len_2_constexpr] is legal, but char arr_4[len_2] is illegal.
+
+The code also demonstrates that len_foo() cannot be used to declare an array size, but len_foo_constexpr() can be used. The declaration char arr_6[len_foo_constexpr() + 1] is legal.
+*/
