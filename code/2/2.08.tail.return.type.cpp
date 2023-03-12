@@ -45,3 +45,21 @@ int main() {
 
     return 0;
 }
+
+/*
+Before C++11, template type deduction required the programmer to specify all the template parameters, 
+which could be cumbersome and error-prone. The add function in the code uses this syntax to specify the return type R 
+and the types of the two function arguments T and U. The function simply returns the sum of the two arguments.
+
+In C++11, template type deduction was improved with the introduction of auto and the decltype specifier. 
+The add2 function in the code uses these features to deduce the return type of the function based on the types of its arguments. 
+The decltype specifier is used to determine the type of the expression x + y, and this type is used as the return type of the function. 
+The auto keyword is used to specify that the return type should be deduced automatically. 
+This reduces the verbosity of the code and makes it easier to read.
+
+In C++14, the auto keyword was further enhanced to allow deduction of function return types without using decltype. 
+The add3 function in the code uses this feature to automatically deduce the return type of the function based on the types of its arguments. 
+This is done by simply returning the sum of the two arguments using the + operator, 
+and allowing the compiler to deduce the return type based on the types of the arguments. 
+This further simplifies the code and makes it even easier to read.
+*/
