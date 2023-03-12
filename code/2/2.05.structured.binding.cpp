@@ -16,6 +16,7 @@ std::tuple<int, double, std::string> f() {
 }
 
 int main() {
+    // Notice the unpacking using the [] braces with auto
     auto [x, y, z] = f();
     std::cout << x << ", " << y << ", " << z << std::endl;
     return 0;
