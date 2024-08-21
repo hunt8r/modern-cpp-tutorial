@@ -18,20 +18,21 @@ which refers to the language behavior that occurred before the runtime.
 
 ### nullptr
 
-The purpose of `nullptr` appears to replace `NULL`. In a sense,
-traditional C++ treats `NULL` and `0` as the same thing,
-depending on how the compiler defines NULL,
-and some compilers define NULL as `((void*)0)` Some will define it directly as `0`.
+The purpose of `nullptr` appears to replace `NULL`. There are **null pointer constants** in the C and C++ languages,
+which can be implicitly converted to null pointer value of any pointer type,
+or null member pointer value of any pointer-to-member type in C++.
+`NULL` is provided by the standard library implementation and defined as an implementation-defined null pointer constant.
+In C, some standard libraries defines `NULL` as `((void*)0)` and some define it as `0`.
 
-C++ **does not allow** to implicitly convert `void *` to other types.
-But if the compiler tries to define `NULL` as `((void*)0)`, then in the following code:
+C++ **does not allow** to implicitly convert `void *` to other types, and thus `((void*)0)` is not a valid implementation
+of `NULL`. If the standard library tries to define `NULL` as `((void*)0)`, then compilation error would occur in the following code:
 
 ```cpp
 char *ch = NULL;
 ```
 
 C++ without the `void *` implicit conversion has to define `NULL` as `0`.
-This still creates a new problem. Defining `NULL` to 0 will cause the overloading feature in `C++` to be confusing.
+This still creates a new problem. Defining `NULL` to `0` will cause the overloading feature in `C++` to be confusing.
 Consider the following two `foo` functions:
 
 ```cpp
@@ -41,7 +42,7 @@ void foo(int);
 
 Then the `foo(NULL);` statement will call `foo(int)`, which will cause the code to be counterintuitive.
 
-To solve this problem, C++11 introduced the `nullptr` keyword, which is specifically used to distinguish null pointers, 0. The type of `nullptr` is `nullptr_t`, which can be implicitly converted to any pointer or member pointer type, and can be compared equally or unequally with them.
+To solve this problem, C++11 introduced the `nullptr` keyword, which is specifically used to distinguish null pointers, `0`. The type of `nullptr` is `nullptr_t`, which can be implicitly converted to any pointer or member pointer type, and can be compared equally or unequally with them.
 
 You can try to compile the following code using clang++:
 
@@ -417,17 +418,23 @@ auto i = 5;              // i as int
 auto arr = new auto(10); // arr as int *
 ```
 
-Since C++ 20, `auto` can even be used as function arguments. Consider
-the following example:
+Since C++ 14, `auto` can even be used as function arguments in generic lambda expressions,
+and such functionality is generalized to normal functions in C++ 20.
+Consider the following example:
 
 ```cpp
-int add(auto x, auto y) {
+auto add14 = [](auto x, auto y) -> int {
+    return x+y;
+}
+
+int add20(auto x, auto y) {
     return x+y;
 }
 
 auto i = 5; // type int
 auto j = 6; // type int
-std::cout << add(i, j) << std::endl;
+std::cout << add14(i, j) << std::endl;
+std::cout << add20(i, j) << std::endl;
 ```
 
 > **Note**: `auto` cannot be used to derive array types yet:
@@ -480,7 +487,7 @@ type z == type x
 
 ### tail type inference
 
-You may think that when we introduce `auto`, we have already mentioned that `auto` cannot be used for function arguments for type derivation. Can `auto` be used to derive the return type of a function? Still consider an example of an add function, which we have to write in traditional C++:
+You may think that whether `auto` can be used to deduce the return type of a function. Still consider an example of an add function, which we have to write in traditional C++:
 
 ```cpp
 template<typename R, typename T, typename U>
@@ -971,7 +978,7 @@ C++11 introduces the two keywords `override` and `final` to prevent this from ha
 
 ### override
 
-When overriding a virtual function, introducing the `override` keyword will explicitly tell the compiler to overload, and the compiler will check if the base function has such a virtual function, otherwise it will not compile:
+When overriding a virtual function, introducing the `override` keyword will explicitly tell the compiler to overload, and the compiler will check if the base function has such a virtual function with consistent function signature, otherwise it will not compile:
 
 ```cpp
 struct Base {
